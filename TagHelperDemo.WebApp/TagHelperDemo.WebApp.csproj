@@ -10,4 +10,8 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.2" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\TagHelperDemo.Shared\TagHelperDemo.Shared.csproj" />
+    </ItemGroup>
+
 </Project>
