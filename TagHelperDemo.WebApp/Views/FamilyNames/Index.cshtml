@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FamilyName>
+﻿@model PagedList<FamilyName>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -17,7 +17,7 @@
         </thead>
         <tbody>
         @{
-            var counter = 0;
+            var counter = Model.PageSize * (Model.CurrentPage - 1);
             foreach (var item in Model)
             {
                 <tr>
@@ -31,4 +31,12 @@
         }
         </tbody>
     </table>
+    <nav>
+        <paging pagination="@Model"
+                first-page-text="Pierwsza"
+                last-page-text="Ostatnia"
+                controller="FamilyNames"
+                action="Index">
+        </paging>
+    </nav>
 </div>

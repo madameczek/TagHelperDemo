@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using TagHelperDemo.Shared.PaginationTagHelper;
 using TagHelperDemo.WebApp.Data;
+using TagHelperDemo.WebApp.Domain;
 using TagHelperDemo.WebApp.Models;
 
 namespace TagHelperDemo.WebApp.Controllers;
@@ -16,13 +18,12 @@ public class FamilyNamesController : Controller
         _dbContext = dbContext;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(int pageSize = 25, int pageNumber = 1)
     {
         var familyNames = _dbContext.FamilyNames!
-            .OrderByDescending(x => x.OccurenceCount)
-            .Take(200)
-            .ToList();
-        return View(familyNames);
+            .OrderByDescending(x => x.OccurenceCount);
+        var pagedList = PagedList<FamilyName>.Create(familyNames, pageNumber, pageSize);
+        return View(pagedList);
     }
 
     public IActionResult About()
